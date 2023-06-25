@@ -7,12 +7,7 @@ class Pokemon {
     photo;
 }
 
-class PokemonInfo{
-    number;
-    name;
-    type;
-    types = [];
+class PokemonInfo extends Pokemon{
     abilitie;
     abilities =[];
-    photo; 
 }
