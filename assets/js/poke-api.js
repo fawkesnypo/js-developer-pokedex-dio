@@ -17,6 +17,36 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
     return pokemon
 }
 
+function convertPokeApiInfoToPokemon(pokeDetail) {
+    console.log(pokeDetail)
+    const pokemon = new PokemonInfo()
+    pokemon.number = pokeDetail.id
+    pokemon.name = pokeDetail.name
+
+    const types = pokeDetail.types.map((typeSlot) => typeSlot.type.name)
+    const [type] = types
+
+    const abilities = pokeDetail.abilities.map((abilitiesSlot) => abilitiesSlot.ability.name)
+    const [abilitie] = abilities
+
+    pokemon.types = types
+    pokemon.type = type
+    pokemon.abilities = abilities
+    pokemon.abilitie = abilitie
+
+    pokemon.photo = pokeDetail.sprites.other.dream_world.front_default
+
+    return pokemon
+}
+
+pokeApi.getDetails = (id) => {
+    const detailsUrl = `https://pokeapi.co/api/v2/pokemon/${id}/`
+
+    return fetch(detailsUrl)
+        .then((response) => response.json())
+        .then(convertPokeApiInfoToPokemon)
+}
+
 pokeApi.getPokemonDetail = (pokemon) => {
     return fetch(pokemon.url)
         .then((response) => response.json())
